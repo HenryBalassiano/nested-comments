@@ -14,6 +14,8 @@ interface CommentProps {
   handleReplyText: (e: React.ChangeEvent<HTMLInputElement>) => void;
   replyInput: string | null;
   setReplyInput: React.Dispatch<React.SetStateAction<string | null>>;
+  setReplyText: React.Dispatch<React.SetStateAction<string>>;
+  replyText: string;
 }
 export default function Comment({
   comments,
@@ -21,6 +23,8 @@ export default function Comment({
   handleReplyText,
   replyInput,
   setReplyInput,
+  setReplyText,
+  replyText,
 }: CommentProps) {
   console.log(replyInput);
   return (
@@ -32,16 +36,21 @@ export default function Comment({
           </div>{" "}
           {replyInput === comment.id ? (
             <div id="reply-input">
-              <input type="text" onChange={(e) => handleReplyText(e)} />
-              <button
-                onClick={() => {
+              <form
+                onSubmit={() => {
                   setReplyInput(null);
                   handleReply(comment.id);
+                  setReplyText("");
                 }}
               >
-                {" "}
-                reply
-              </button>
+                <input
+                  type="text"
+                  value={replyText}
+                  onChange={(e) => handleReplyText(e)}
+                  required
+                />
+                <button type="submit"> reply</button>
+              </form>
             </div>
           ) : (
             <button
@@ -61,6 +70,8 @@ export default function Comment({
                 handleReplyText={handleReplyText}
                 replyInput={replyInput}
                 setReplyInput={setReplyInput}
+                setReplyText={setReplyText}
+                replyText={replyText}
               />
             </div>
           )}{" "}

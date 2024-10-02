@@ -62,14 +62,22 @@ function App() {
   return (
     <div className="app">
       <div id="post-comment">
-        <input
-          type="text"
-          onChange={(e) => {
-            addComment(e);
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            postComment();
           }}
-          value={commentText}
-        />
-        <button onClick={postComment}>Post Comment</button>
+        >
+          <input
+            type="text"
+            onChange={(e) => {
+              addComment(e);
+            }}
+            required
+            value={commentText}
+          />
+          <button type="submit">Post Comment</button>
+        </form>
       </div>
       <div className="app-container">
         <Comment
@@ -78,6 +86,8 @@ function App() {
           handleReplyText={handleReplyText}
           replyInput={replyInput}
           setReplyInput={setReplyInput}
+          setReplyText={setReplyText}
+          replyText={replyText}
         />
       </div>
     </div>
