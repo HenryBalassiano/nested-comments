@@ -12,35 +12,7 @@ function App() {
   const [replyText, setReplyText] = useState<string>("");
   const [replyInput, setReplyInput] = useState<string | null>("");
 
-  const [comments, setComments] = useState<Comments[]>([
-    {
-      comment: "ji whats up",
-      id: uuidv4(),
-      replies: [
-        {
-          comment: "im a child",
-          id: uuidv4(),
-          replies: [
-            {
-              comment: "hello im henry",
-              id: uuidv4(),
-              replies: [],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      comment: "ji whats up",
-      id: uuidv4(),
-      replies: [],
-    },
-    {
-      comment: "ji whats up",
-      id: uuidv4(),
-      replies: [],
-    },
-  ]);
+  const [comments, setComments] = useState<Comments[]>([]);
 
   function createComment(input: string): Comments {
     return {
@@ -88,22 +60,26 @@ function App() {
   console.log(comments, replyText);
 
   return (
-    <div>
-      <input
-        type="text"
-        onChange={(e) => {
-          addComment(e);
-        }}
-        value={commentText}
-      />
-      <button onClick={postComment}>Post Comment</button>
-      <Comment
-        comments={comments}
-        handleReply={handleReply}
-        handleReplyText={handleReplyText}
-        replyInput={replyInput}
-        setReplyInput={setReplyInput}
-      />
+    <div className="app">
+      <div id="post-comment">
+        <input
+          type="text"
+          onChange={(e) => {
+            addComment(e);
+          }}
+          value={commentText}
+        />
+        <button onClick={postComment}>Post Comment</button>
+      </div>
+      <div className="app-container">
+        <Comment
+          comments={comments}
+          handleReply={handleReply}
+          handleReplyText={handleReplyText}
+          replyInput={replyInput}
+          setReplyInput={setReplyInput}
+        />
+      </div>
     </div>
   );
 }

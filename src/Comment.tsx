@@ -1,5 +1,7 @@
 import {useState} from "react";
 import {v4 as uuidv4} from "uuid";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faReply} from "@fortawesome/free-solid-svg-icons";
 
 interface Comments {
   comment: string;
@@ -29,7 +31,7 @@ export default function Comment({
             {comment.comment}
           </div>{" "}
           {replyInput === comment.id ? (
-            <>
+            <div id="reply-input">
               <input type="text" onChange={(e) => handleReplyText(e)} />
               <button
                 onClick={() => {
@@ -40,14 +42,15 @@ export default function Comment({
                 {" "}
                 reply
               </button>
-            </>
+            </div>
           ) : (
             <button
               onClick={() => {
                 setReplyInput(comment.id);
               }}
+              id="reply-btn"
             >
-              Reply
+              {"  "} <FontAwesomeIcon icon={faReply} /> Reply
             </button>
           )}
           {comment.replies && (
